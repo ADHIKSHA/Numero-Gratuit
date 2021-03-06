@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+{% block body %}
+<style type="text/css">
+  /* Style the search box */
+#mySearch {
+  width: 100%;
+  font-size: 18px;
+  padding: 11px;
+  border: 1px solid #ddd;
+}
+
+/* Style the navigation menu */
+#myMenu {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Style the navigation links */
+#myMenu li a {
+  padding: 12px;
+  text-decoration: none;
+  color: black;
+  display: block
+}
+
+#myMenu li a:hover {
+  background-color: #eee;
+}
+
+#consent-popup {
+    position: center;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2rem 8rem;
+    background-color: #fff;
+    transition: opacity 1s ease;
+
+    &.hidden {
+        opacity: 0;
+    }
+}
+</style>
+<!-- to be filled by the Python script -->
+<h1>{{ the_title }}</h1>
+
+<!-- note how items from the "static" folder are linked -->
+<div id="all">
+<input type="text" id="mySearch" onkeyup="myFunction()" placeholder="Search.." title="Type in a category">
+<br>
+<p>List of Companies</p>
+
+<ul id="companies" name="companies">
+  <!-- note how items from routes in the the Python script are linked -->
+ 
+</ul>
+
+<br>  
+<a href="/myth.html" style="float: right;font-size: 20px;">Add Company</a>
+
+</div>
+
+<script type="text/javascript">
+  function hideit(){
+  saveToStorage(storageType);
+}
+
+const cookieStorage = {
+    getItem: (item) => {
+        const cookies = document.cookie
+            .split(';')
+            .map(cookie => cookie.split('='))
+            .reduce((acc, [key, value]) => ({ ...acc, [key.trim()]: value }), {});
+        return cookies[item];
+    },
+    setItem: (item, value) => {
+        document.cookie = `${item}=${value};`
+    }
+}
+
+const storageType = cookieStorage;
+const consentPropertyName = 'jdc_consent';
+const shouldShowPopup = () => !storageType.getItem(consentPropertyName);
+const saveToStorage = () => storageType.setItem(consentPropertyName, true);
+
+console.log(document.cookie);
+    if (shouldShowPopup(storageType)) {
+        setTimeout(() => {
+            Swal.fire({
+                        'title': 'Consent For some Cookies',
+                        'html': 'This would help us make the user experience better.By using this site you agree to our Terms and Conditions.Please <b>ACCEPT</b> these before using the site.Click Here to know more about our <a href="#">Terms and Conditions</a>',
+                        'showCancelButton': false,
+                        'allowOutsideClick': false,
+                        'showConfirmButton': true,
+                        'confirmButtonColor': '#3085d6',
+                        'confirmButtonText': 'Accept!',
+                        'width': '600px',
+                    }).then(x => {
+                        if (x.value) {
+                            saveToStorage(storageType);
+                        } else {
+                            alert('Sorry! You cannot go ahead!');
+                        }
+            });
+            //consentPopup.style.display="block";
+        }, 2000);
+    }
+
+</script>
+<script>
+function myFunction() {
+  // Declare variables
+  var input, filter, ul, li, a, i;
+  input = document.getElementById("mySearch");
+  filter = input.value.toUpperCase();
+  ul = document.getElementById("companies");
+  li = ul.getElementsByTagName("li");
+
+  // Loop through all list items, and hide those who don't match the search query
+  for (i = 0; i < li.length; i++) {
+    a = li[i].getElementsByTagName("a")[0];
+    if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+      li[i].style.display = "";
+    } else {
+      li[i].style.display = "none";
+    }
+  }
+}
+</script>
+<script type="text/javascript">
+  var data ='{{data}}';
+  var array = data.split(",");
+  var x;
+  console.log(array);
+  var ul = document.getElementById("companies");
+   for (x in array){
+    if(array[x]!=""){
+    var a = document.createElement("a");
+var ulist = document.getElementById("list1");
+var newItem = document.createElement("li");
+console.log(array[x]);
+a.textContent = array[x];
+var link = "/symbol.html/"+array[x];
+a.setAttribute('href', link);
+newItem.appendChild(a);
+ul.appendChild(newItem);
+}
+  }
+</script>
+{% endblock %}
