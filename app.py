@@ -35,7 +35,7 @@ def index():
 				data+=value
 				data+=','
 	print(data)
-	return render_template('index.html', the_title='Companies Home',data= data)
+	return render_template('index.html', the_title='Numero Gratuit',data= data)
 
 @app.route('/symbol.html/<name>')
 def symbol(name):

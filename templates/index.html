@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+
 {% block body %}
 <style type="text/css">
   /* Style the search box */
@@ -49,15 +50,15 @@
 <div id="all">
 <input type="text" id="mySearch" onkeyup="myFunction()" placeholder="Search.." title="Type in a category">
 <br>
-<p>List of Companies</p>
-
+<p style="font-size: 30px;">List of Companies</p>
+<a href="/myth.html" style="float: right;font-size: 25px;">Add Company</a>
+<br>
 <ul id="companies" name="companies">
   <!-- note how items from routes in the the Python script are linked -->
  
 </ul>
 
 <br>  
-<a href="/myth.html" style="float: right;font-size: 20px;">Add Company</a>
 
 </div>
 
@@ -119,12 +120,15 @@ function myFunction() {
 
   // Loop through all list items, and hide those who don't match the search query
   for (i = 0; i < li.length; i++) {
-    a = li[i].getElementsByTagName("a")[0];
+    var ele = li[i].getElementsByTagName("a");
+    if(ele.length!=0){
+      a = ele[0];
     if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
       li[i].style.display = "";
     } else {
       li[i].style.display = "none";
     }
+  }
   }
 }
 </script>
@@ -134,10 +138,25 @@ function myFunction() {
   var x;
   console.log(array);
   var ul = document.getElementById("companies");
+  array.sort(function (a, b) {
+    return a.toLowerCase().localeCompare(b.toLowerCase());
+});
+  var first='';
    for (x in array){
     if(array[x]!=""){
+      if(first!=array[x][0].toUpperCase()){
+          var newItem = document.createElement("li");
+          var hrline = document.createElement("HR");
+          var br = document.createElement("BR");          
+          ul.appendChild(br);
+          ul.appendChild(newItem);
+          ul.appendChild(hrline);
+          newItem.innerHTML = array[x][0].toUpperCase();
+          newItem.style.listStyle = "none";
+          first=array[x][0].toUpperCase();
+
+        }
     var a = document.createElement("a");
-var ulist = document.getElementById("list1");
 var newItem = document.createElement("li");
 console.log(array[x]);
 a.textContent = array[x];
