@@ -44,7 +44,7 @@ def symbol(name):
 	for i in li:
 		if(i["name"]==name):
 			data= i["phone"]
-	return render_template('symbol.html', the_title='Contact Info',data= data)
+	return render_template('symbol.html', the_title='Contact Info',data= data,comp=name)
 
 
 @app.route('/myth.html', methods=['POST','GET'])

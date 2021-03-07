@@ -8,7 +8,7 @@ body {
     font-family: 'Source Sans Pro', sans-serif;
     font-size: 100%;
     color: #000;
-    background: #407189;
+    background:#f1f7dc;
     margin: 0;
 }
 
@@ -16,7 +16,7 @@ body {
     margin: 2em auto;
     width: 740px;
     padding: 2em 4em;
-    background: #f1f7dc;
+    background:#20B2AA;
 }
 
 h1, h2 {
@@ -47,12 +47,12 @@ img {
 /* links */
 
 a {
-    color: #1484bc;
+    color: #191970;
     text-decoration: none;
 }
 
 a:hover {
-    color: #407189;
+    color: #1484bc;
     text-decoration: underline;
 }
 

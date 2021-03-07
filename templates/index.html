@@ -44,16 +44,17 @@
 }
 </style>
 <!-- to be filled by the Python script -->
+<CENTER>
 <h1>{{ the_title }}</h1>
-
+</CENTER>
 <!-- note how items from the "static" folder are linked -->
 <div id="all">
-<input type="text" id="mySearch" onkeyup="myFunction()" placeholder="Search.." title="Type in a category">
+<input type="text" id="mySearch" onkeyup="myFunction()" placeholder="Search Company" title="Type in a category">
 <br>
-<p style="font-size: 30px;">List of Companies</p>
-<a href="/myth.html" style="float: right;font-size: 25px;">Add Company</a>
+<!--<p style="font-size: 30px;">List of Companies</p>
+<a href="/myth.html" style="float: right;font-size: 25px;">Add Company</a>-->
 <br>
-<ul id="companies" name="companies">
+<ul id="companies" name="companies" class="list-group">
   <!-- note how items from routes in the the Python script are linked -->
  
 </ul>
@@ -158,6 +159,7 @@ function myFunction() {
         }
     var a = document.createElement("a");
 var newItem = document.createElement("li");
+newItem.className="list-group-item";
 console.log(array[x]);
 a.textContent = array[x];
 var link = "/symbol.html/"+array[x];
