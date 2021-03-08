@@ -4,22 +4,30 @@
 <style type="text/css">
   /* Style the search box */
 #mySearch {
-  width: 100%;
-  font-size: 18px;
-  padding: 11px;
-  border: 1px solid #ddd;
-}
+  width: 50%;height: 50px; 
+  float: right;
+  border: 2px solid #ccc;
+  border-radius: 30px;
+  font-size: 16px;
+  background-color: white;
+  background-image: url('searchicon.png');
+  background-position: 10px 10px; 
+  background-repeat: no-repeat;
+  padding: 12px 20px 12px 40px;
 
+}
+#mySearch:focus {
+  width: 100%;
+}
 /* Style the navigation menu */
 #myMenu {
   list-style-type: none;
-  padding: 0;
-  margin: 0;
+  padding: auto;
+  margin: auto;
 }
 
 /* Style the navigation links */
 #myMenu li a {
-  padding: 12px;
   text-decoration: none;
   color: black;
   display: block
@@ -31,9 +39,9 @@
 
 #consent-popup {
     position: center;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    bottom: auto;
+    left: auto;
+    right: auto;
     padding: 2rem 8rem;
     background-color: #fff;
     transition: opacity 1s ease;
@@ -44,24 +52,19 @@
 }
 </style>
 <!-- to be filled by the Python script -->
-<CENTER>
-<h1>{{ the_title }}</h1>
-</CENTER>
+
 <!-- note how items from the "static" folder are linked -->
-<div id="all">
-<input type="text" id="mySearch" onkeyup="myFunction()" placeholder="Search Company" title="Type in a category">
-<br>
+<div style="display: block;">
+<input type="text" id="mySearch" onkeyup="myFunction()" placeholder="Search Company..." title="Type in a category">
+<br><br><br>
 <!--<p style="font-size: 30px;">List of Companies</p>
 <a href="/myth.html" style="float: right;font-size: 25px;">Add Company</a>-->
 <br>
-<ul id="companies" name="companies" class="list-group">
+<ul id="companies" name="companies" class="list-group" style="display: block;">
   <!-- note how items from routes in the the Python script are linked -->
  
 </ul>
-
-<br>  
-
-</div>
+<br> </div> 
 
 <script type="text/javascript">
   function hideit(){
@@ -113,14 +116,57 @@ console.log(document.cookie);
 <script>
 function myFunction() {
   // Declare variables
+  var input, filter, ul, li, a, i,hr,z,ele;
+  input = document.getElementById("mySearch");
+  filter = input.value.toUpperCase();
+  ul = document.getElementsByName("innerli");
+  console.log(ul.length);
+  var flag=0;
+  // Loop through all list items, and hide those who don't match the search query
+  for (i = 0; i < ul.length; i++) {
+    li = ul[i].getElementsByClassName("list-group-item");
+    flag=li.length;
+    for (z=0;z<li.length;z++){
+    ele = li[z].getElementsByTagName("a");
+    if(ele.length!=0){
+      a = ele[0];
+    if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+      li[z].style.display = "";
+    } else {
+      li[z].style.display = "none";
+      flag--;
+    }
+  }
+  }
+  hr = ul[i].getElementsByClassName("headers");
+  if(flag==0){
+    for(z=0;z<hr.length;z++){
+      hr[z].style.display="none";
+    }
+  }
+  else{
+    for(z=0;z<hr.length;z++){
+      hr[z].style.display="";
+    }
+  }
+}
+}
+
+
+
+  /*
+function myFunction() {
+  // Declare variables
   var input, filter, ul, li, a, i;
   input = document.getElementById("mySearch");
   filter = input.value.toUpperCase();
   ul = document.getElementById("companies");
   li = ul.getElementsByTagName("li");
 
+  var flag=0;
   // Loop through all list items, and hide those who don't match the search query
   for (i = 0; i < li.length; i++) {
+    flag  =
     var ele = li[i].getElementsByTagName("a");
     if(ele.length!=0){
       a = ele[0];
@@ -128,10 +174,11 @@ function myFunction() {
       li[i].style.display = "";
     } else {
       li[i].style.display = "none";
+
     }
   }
   }
-}
+}*/
 </script>
 <script type="text/javascript">
   var data ='{{data}}';
@@ -143,19 +190,28 @@ function myFunction() {
     return a.toLowerCase().localeCompare(b.toLowerCase());
 });
   var first='';
+  var list=null;
    for (x in array){
     if(array[x]!=""){
       if(first!=array[x][0].toUpperCase()){
+          if(list!=null){
+            ul.appendChild(list);
+          }
+          list =document.createElement("ul");
+          list.setAttribute('name','innerli');
           var newItem = document.createElement("li");
           var hrline = document.createElement("HR");
-          var br = document.createElement("BR");          
-          ul.appendChild(br);
-          ul.appendChild(newItem);
-          ul.appendChild(hrline);
+          hrline.style.border="1px solid gray";
+          var br = document.createElement("BR");
+          hrline.className="headers";
+          newItem.className="headers";
+          br.className="headers";        
+          list.appendChild(br);
+          list.appendChild(newItem);
+          list.appendChild(hrline);
           newItem.innerHTML = array[x][0].toUpperCase();
           newItem.style.listStyle = "none";
           first=array[x][0].toUpperCase();
-
         }
     var a = document.createElement("a");
 var newItem = document.createElement("li");
@@ -165,7 +221,7 @@ a.textContent = array[x];
 var link = "/symbol.html/"+array[x];
 a.setAttribute('href', link);
 newItem.appendChild(a);
-ul.appendChild(newItem);
+list.appendChild(newItem);
 }
   }
 </script>

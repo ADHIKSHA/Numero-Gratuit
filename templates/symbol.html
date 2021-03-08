@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 
 {% block body %}
-
 <CENTER>
-<h1>{{ the_title }}</h1>
+<p class="text-uppercase font-weight-bold" style="font-size:30px;">{{comp}}</p>
 </CENTER>
-<h3>Name of the Company:&nbsp;&nbsp;&nbsp; {{comp}}</h3>
-<h3 >Phone Number:   &nbsp;&nbsp;&nbsp;{{data}}</h3>
-<br>
-
-<a href="/" style="font-size: 25px;float: right;">Numero Gratuit</a>
+<div style="display: inline;">
+<img src="{{ url_for('static', filename='images/phone-book.png') }}" style="width: 100px;height: 100px;display: inline;">
+<p style="display: inline;">
+Phone Number:   &nbsp;&nbsp;&nbsp;<p style="font-weight: bold;background-color: #FF9797;display: inline-block;padding: 0.5em;border-radius: 20px;">{{data}}</p></p>
+</div>
+<!--<a href="/" style="font-size: 25px;float: right;">Numero Gratuit</a>-->
 <br><br>
 {% endblock %}
