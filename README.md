@@ -7,6 +7,7 @@ Use library pymongo to connect to the MongoDB cluster.
 ## Usage
 ```
 <CMD into the folder>
+> Add your MongoDB cluster database url in place of <url of your mongoDB cluster database> in **app.py** file.
 > pip3 install -r requirements.txt
 > python app.py
 
