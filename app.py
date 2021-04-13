@@ -27,14 +27,11 @@ def inject_template_scope():
 def index():
 	data=''
 	li = mycol.find()
-	print(li)
 	for i in li:
-		print('i')
 		for key,value in i.items():
 			if(key=="name"):
 				data+=value
 				data+=','
-	print(data)
 	return render_template('index.html', the_title='Numero Gratuit',data= data)
 
 @app.route('/symbol.html/<name>')
