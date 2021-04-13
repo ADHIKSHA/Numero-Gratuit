@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 import pymongo
 
-client = pymongo.MongoClient("mongodb+srv://root:root@cluster0.kopw9.mongodb.net/mydatabase?retryWrites=true&w=majority")
+client = pymongo.MongoClient("<url to your mongodb database>")
 db = client.test
 mydb = client["mydatabase"]
 mycol = mydb["companies"]
